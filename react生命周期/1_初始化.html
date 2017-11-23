@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="container"></div>
+	<script src="react-15.3.1/build/react.js"></script>
+	<script src="react-15.3.1/build/react-dom.js"></script>
+	<script src="react-15.3.1/browser.js"></script>
+	<script src="react-15.3.1/jquery-1.12.4.js"></script>
+	<script type="text/babel">
+				$(document).ready(
+				function(){
+					var style = {
+						color : "#f00",
+						border : "1px #0f0 solid"
+					}
+					var count= 0;
+					var HelloWorld = React.createClass({
+					getDefaultProps: function(){
+						console.log('1');
+						return {name : 'lisi'}
+					},
+					getInitialState : function(){
+						console.log('2');
+						return {
+							getCount : count++,
+							ready : false
+						}
+						
+					},
+					componentWillMount : function(){
+						console.log('3');
+						this.setState({ready : true})
+					},
+					render : function(){
+						console.log('4');
+						return <p>hello {this.props.name || "world"}<br />
+							{this.state.getCount}{"" + this.state.ready}</p>
+					},
+					componentDidMount : function(){
+						console.log('5');
+						$(ReactDOM.findDOMNode(this)).append('qiyawoqu');
+
+					}
+			});
+			ReactDOM.render(<div style={style}><HelloWorld></HelloWorld><br />
+			<HelloWorld></HelloWorld><HelloWorld></HelloWorld><HelloWorld></HelloWorld></div>,document.getElementById('container'));
+			}
+			
+		)
+	</script>
+</body>
+</html>

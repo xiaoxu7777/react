@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script<div id="container"></div>
+	<script src="react-15.3.1/build/react.js"></script>
+	<script src="react-15.3.1/build/react-dom.js"></script>
+	<script src="react-15.3.1/browser.js"></script> 
+	<script src="react-15.3.1/jquery-1.12.4.js"></script>
+	<script type="text/babel">
+		$(document).ready(
+			function(){
+				var style = {
+				color:"red",
+				border:"1px #000 solid"
+			}
+
+			var HelloWorld = React.createClass({
+				componentWillReceiveProps : function(obj){
+					console.log('1');
+					console.log(obj)
+				},
+				shouldComponentUpdate : function(){
+					
+					console.log('2');
+					return true;				
+				},
+				componentWillUpdate : function(){
+					console.log('3');
+				},
+				render : function(){
+					console.log('4');
+					return <p>HELLO {this.props.name || "world"} </p>
+				},
+				componentDidUpdate : function(){
+					console.log('5');
+					$(ReactDOM.findDOMNode(this)).append('aiyawoqu');
+
+				}
+			});
+			var HelloUnivers = React.createClass({
+				getInitialState : function(){
+					return {name : ''}
+				},
+				handleChange : function(e){
+					this.setState({name : e.target.value})
+				},
+				render : function(){
+					return <div><HelloWorld name={this.state.name}></HelloWorld><br/>  
+					<input type="text" onChange={this.handleChange} /></div>
+				}
+
+			})
+			
+
+
+			ReactDOM.render(<div style={style}> <HelloUnivers></HelloUnivers></div>,document.getElementById('container'));
+				}
+		)
+
+	</script>
+</body>
+</html>
