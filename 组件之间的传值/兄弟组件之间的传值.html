@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<div id="container"></div>
+	<script src="react-15.3.1/build/react.js"></script>
+	<script src="react-15.3.1/build/react-dom.js"></script>
+	<script src="react-15.3.1/browser.js"></script> 
+	<script src="PubSub.js"></script>
+	<script type="text/babel">
+
+		var Component1 = React.createClass({
+			handleChange :function(e){
+				PubSub.publish('lue',{
+					val : e.target.value
+				})
+			},
+			render : function(){
+				return (
+					<select name="" onChange={this.handleChange}>
+						<option>西瓜</option>
+						<option>苹果</option>
+						<option>香蕉</option>
+						<option>菠萝</option>
+					</select>
+				)
+			}
+		})	
+		var Component2 = React.createClass({
+			getInitialState : function(){
+				return {
+					fruits : ''
+				}
+			},
+			componentWillMount : function(){
+				PubSub.subscribe('lue',function(msg,data){
+					this.setState({
+						fruits : data.val
+					})
+				}.bind(this))
+			},
+			render : function(){
+				return(
+					<h1>{this.state.fruits}</h1>
+				)
+			}
+		})
+		ReactDOM.render(<div><Component1/><Component2/></div>,document.getElementById('container'))
+	</script>
+</body>
+</html>
